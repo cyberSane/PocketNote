@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/subject_area"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20px"
+        android:hint="Enter subject"
+        android:inputType="text"
+        android:textColorLink="@android:color/black" />
+
+    <EditText
+        android:id="@+id/content_area"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="20px"
+        android:hint="Note goes here..."
+        android:inputType="text"
+        android:textColorLink="@android:color/black" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="submit"
+        android:text="Submit" />
+
+</LinearLayout>
