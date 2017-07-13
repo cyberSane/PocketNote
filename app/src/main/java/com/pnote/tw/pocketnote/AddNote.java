@@ -1,5 +1,6 @@
 package com.pnote.tw.pocketnote;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,5 +27,7 @@ public class AddNote extends AppCompatActivity {
 
         notesManager.writeNote(subjectArea.getText().toString(), contentArea.getText().toString());
 
+        Intent dashboardIntent = new Intent(this, Dashboard.class);
+        startActivity(dashboardIntent);
     }
 }

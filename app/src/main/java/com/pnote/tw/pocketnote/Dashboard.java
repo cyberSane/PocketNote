@@ -1,7 +1,9 @@
 package com.pnote.tw.pocketnote;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -28,5 +30,10 @@ public class Dashboard extends AppCompatActivity {
 
         NotesListener notesListener = new NotesListener(this);
         notesList.setOnItemClickListener(notesListener);
+    }
+
+    public void addNewNote(View view) {
+        Intent addNoteIntent = new Intent(this, AddNote.class);
+        startActivity(addNoteIntent);
     }
 }
