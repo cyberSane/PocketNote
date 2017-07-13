@@ -28,6 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="save"
-        android:text="Submit" />
+        android:text="Save" />
 
 </LinearLayout>
