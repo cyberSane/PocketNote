@@ -21,6 +21,12 @@
         <activity
             android:name=".SaveNote">
         </activity>
+        <activity
+            android:name=".about.About">
+        </activity>
+        <activity
+            android:name=".utils.Settings">
+        </activity>
     </application>
 
 </manifest>
