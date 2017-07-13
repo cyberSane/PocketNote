@@ -8,7 +8,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,12 +16,6 @@ public class NotesManager {
     private Activity activity;
 
     private static String FILENAME = "NOTES_COLLECTION";
-
-    private HashMap<String, String> fetchNotes() throws IOException, org.json.simple.parser.ParseException {
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
-
-        return (HashMap<String, String>) sharedPreferences.getAll();
-    }
 
     public NotesManager(Activity activity) {
         this.activity = activity;
@@ -34,7 +27,7 @@ public class NotesManager {
         try {
             HashMap<String, String> notes = fetchNotes();
 
-            for(int i = 0; i < notes.size(); i++){
+            for (int i = 0; i < notes.size(); i++) {
                 String note = notes.get(String.valueOf(i));
 
                 JSONObject parsedNote = (JSONObject) jsonParser.parse(note);
@@ -47,40 +40,35 @@ public class NotesManager {
         return subjects;
     }
 
-    public void writeNote(String subject, String content) throws IOException, ParseException, org.json.simple.parser.ParseException {
+    public JSONObject fetchNote(long noteId) throws IOException, org.json.simple.parser.ParseException {
+        JSONParser jsonParser = new JSONParser();
+        HashMap<String, String> notes = fetchNotes();
 
+        JSONObject filteredNote = (JSONObject) jsonParser.parse(notes.get(String.valueOf(noteId)));
+
+        return (JSONObject) filteredNote.clone();
+    }
+
+    public int notesCount() throws IOException, org.json.simple.parser.ParseException {
+        return fetchNotes().size();
+    }
+
+    public void saveNote(int noteId, String subject, String content) throws IOException, org.json.simple.parser.ParseException {
         JSONObject note = new JSONObject();
+
         note.put("subject", subject);
         note.put("content", content);
 
-
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
-
-        HashMap<String, JSONObject> notes = (HashMap<String, JSONObject>) sharedPreferences.getAll();
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putString(String.valueOf(notes.size()), note.toJSONString());
-
-        editor.apply();
-    }
-
-    public void updateNote(int noteId, String subject, String content) throws IOException, org.json.simple.parser.ParseException {
-        JSONObject noteToUpdate = new JSONObject();
-
-        noteToUpdate.put("subject", subject);
-        noteToUpdate.put("content", content);
-
         SharedPreferences sharedPreferences = activity.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString(String.valueOf(noteId), noteToUpdate.toJSONString());
+        editor.putString(String.valueOf(noteId), note.toJSONString());
 
         editor.apply();
     }
 
-    protected String fetchContent(int noteId) throws IOException, org.json.simple.parser.ParseException {
+    String fetchContent(int noteId) throws IOException, org.json.simple.parser.ParseException {
         JSONParser jsonParser = new JSONParser();
         HashMap<String, String> notes = fetchNotes();
 
@@ -89,12 +77,9 @@ public class NotesManager {
         return note.get("content").toString();
     }
 
-    public JSONObject fetchNote(long noteId) throws IOException, org.json.simple.parser.ParseException {
-        JSONParser jsonParser = new JSONParser();
-        HashMap<String, String> notes = fetchNotes();
+    private HashMap<String, String> fetchNotes() throws IOException, org.json.simple.parser.ParseException {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
 
-        JSONObject filteredNote = (JSONObject) jsonParser.parse(notes.get(String.valueOf(noteId)));
-
-        return (JSONObject) filteredNote.clone();
+        return (HashMap<String, String>) sharedPreferences.getAll();
     }
 }

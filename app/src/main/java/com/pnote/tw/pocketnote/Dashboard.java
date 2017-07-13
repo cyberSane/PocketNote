@@ -10,30 +10,27 @@ import android.widget.ListView;
 import com.pnote.tw.pocketnote.utils.NotesListener;
 import com.pnote.tw.pocketnote.utils.NotesManager;
 
-public class Dashboard extends AppCompatActivity{
+public class Dashboard extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        ListView notesList = (ListView) findViewById(R.id.notes_list);
+        ListView notes = (ListView) findViewById(R.id.notes_list);
 
         NotesManager notesManager = new NotesManager(this);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                notesManager.fetchSubjects());
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notesManager.fetchSubjects());
 
-        notesList.setAdapter(arrayAdapter);
+        notes.setAdapter(arrayAdapter);
 
         NotesListener notesListener = new NotesListener(this);
-        notesList.setOnItemClickListener(notesListener);
+        notes.setOnItemClickListener(notesListener);
     }
 
     public void addNewNote(View view) {
-        Intent addNoteIntent = new Intent(this, AddNote.class);
+        Intent addNoteIntent = new Intent(this, SaveNote.class);
         startActivity(addNoteIntent);
     }
 }

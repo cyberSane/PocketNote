@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.pnote.tw.pocketnote.UpdateNote;
+import com.pnote.tw.pocketnote.SaveNote;
 
 public class NotesListener implements AdapterView.OnItemClickListener {
     private Activity activity;
@@ -20,7 +20,8 @@ public class NotesListener implements AdapterView.OnItemClickListener {
         try {
             NotesManager notesManager = new NotesManager(activity);
             notesManager.fetchContent((int) id);
-            Intent updateNoteIntent = new Intent(activity, UpdateNote.class);
+
+            Intent updateNoteIntent = new Intent(activity, SaveNote.class);
             updateNoteIntent.putExtra("noteId", id);
             activity.startActivity(updateNoteIntent);
         } catch (Exception e) {
