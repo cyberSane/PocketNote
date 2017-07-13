@@ -10,7 +10,7 @@ import android.widget.ListView;
 import com.pnote.tw.pocketnote.utils.NotesListener;
 import com.pnote.tw.pocketnote.utils.NotesManager;
 
-public class Dashboard extends AppCompatActivity {
+public class Dashboard extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

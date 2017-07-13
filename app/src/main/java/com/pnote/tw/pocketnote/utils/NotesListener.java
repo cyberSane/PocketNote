@@ -19,7 +19,7 @@ public class NotesListener implements AdapterView.OnItemClickListener {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
             NotesManager notesManager = new NotesManager(activity);
-            notesManager.fetchContent(id);
+            notesManager.fetchContent((int) id);
             Intent updateNoteIntent = new Intent(activity, UpdateNote.class);
             updateNoteIntent.putExtra("noteId", id);
             activity.startActivity(updateNoteIntent);
