@@ -3,6 +3,9 @@ package com.pnote.tw.pocketnote;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -28,14 +31,36 @@ public class SaveNote extends AppCompatActivity {
         populateNote();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.delete_icon, menu);
+        return true;
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case android.R.id.home:
+                startActivity(new Intent(this, Dashboard.class));
+                return true;
+            case R.id.icon_delete:
+                deleteNote();
                 startActivity(new Intent(this, Dashboard.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void deleteNote() {
+        Intent saveIntent = getIntent();
+        NotesManager notesManager = new NotesManager(this);
+
+        int currentCount = (int) saveIntent.getLongExtra("noteId", THRESHOLD_VALUE);
+
+        notesManager.deleteNote(currentCount);
+
     }
 
     private void populateNote() {

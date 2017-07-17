@@ -28,11 +28,13 @@ public class NotesManager {
             HashMap<String, String> notes = fetchNotes();
 
             for (int i = 0; i < notes.size(); i++) {
-                String note = notes.get(String.valueOf(i));
+                if (notes.containsKey(String.valueOf(i))) {
+                    String note = notes.get(String.valueOf(i));
 
-                JSONObject parsedNote = (JSONObject) jsonParser.parse(note);
+                    JSONObject parsedNote = (JSONObject) jsonParser.parse(note);
 
-                subjects.add(parsedNote.get("subject"));
+                    subjects.add(parsedNote.get("subject"));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,5 +83,15 @@ public class NotesManager {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
 
         return (HashMap<String, String>) sharedPreferences.getAll();
+    }
+
+    public void deleteNote(int noteId) {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.remove(String.valueOf(noteId));
+
+        editor.apply();
     }
 }
