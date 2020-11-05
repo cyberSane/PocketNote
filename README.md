@@ -1,2 +1,2 @@
 # PocketNote
-Basic notepad in your pocket.
+It is a basic notepad android application.
